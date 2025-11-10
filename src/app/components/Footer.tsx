@@ -1,9 +1,29 @@
+'use client'; // <-- Must be a client component for the onClick logic
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation'; // Import the hook
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const pathname = usePathname(); // Get the current page path
+
+  const handleScrollClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    // 1. Check if we are on the homepage
+    if (pathname === '/') {
+      // We are on the homepage, so scroll
+      e.preventDefault(); // Stop the link from navigating
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        // Optional: Update URL hash
+        window.history.pushState(null, '', `#${id}`);
+      }
+    }
+    // 2. If we are NOT on the homepage, the <Link href="/#id">
+    // will just work normally, and the ScrollHandler component will catch it.
+  };
 
   return (
     <footer className="bg-slate-50 border-t border-gray-200">
@@ -30,9 +50,33 @@ export default function Footer() {
             <h4 className="text-lg font-semibold text-gray-900 mb-6">Quick Links</h4>
             <ul className="space-y-4">
               <li><Link href="/" className="text-gray-600 hover:text-brand-primary">Home</Link></li>
-              <li><Link href="/about-us" className="text-gray-600 hover:text-brand-primary">About Us</Link></li>
-              <li><Link href="/projects" className="text-gray-600 hover:text-brand-primary">Projects</Link></li>
-              <li><Link href="/partners" className="text-gray-600 hover:text-brand-primary">Partners</Link></li>
+              <li>
+                <Link 
+                  href="/#about-us" 
+                  onClick={(e) => handleScrollClick(e, 'about-us')}
+                  className="text-gray-600 hover:text-brand-primary"
+                >
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/#projects" 
+                  onClick={(e) => handleScrollClick(e, 'projects')}
+                  className="text-gray-600 hover:text-brand-primary"
+                >
+                  Projects
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/#partners" 
+                  onClick={(e) => handleScrollClick(e, 'partners')}
+                  className="text-gray-600 hover:text-brand-primary"
+                >
+                  Partners
+                </Link>
+              </li>
             </ul>
           </div>
 

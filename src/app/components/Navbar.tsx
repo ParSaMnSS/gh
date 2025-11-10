@@ -1,23 +1,47 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation'; // Import the hook
 
-const Navbar = () => {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname(); // Get the current page path
 
+  const handleScrollClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    // Close the mobile menu if it's open
+    setIsOpen(false);
+
+    // 1. Check if we are on the homepage
+    if (pathname === '/') {
+      // We are on the homepage, so scroll
+      e.preventDefault(); // Stop the link from navigating
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        // Optional: Update URL hash
+        window.history.pushState(null, '', `#${id}`);
+      }
+    }
+    // 2. If we are NOT on the homepage, the <Link href="/#id">
+    // will just work normally, redirecting the user.
+    // The ScrollHandler component will then catch it.
+  };
+
+  // Define nav links for easy mapping
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About Us", href: "/about" },
-    { name: "Projects", href: "/projects" },
-    { name: "Partners", href: "/partners" },
+    { name: 'Home', href: '/', id: 'home' },
+    { name: 'About Us', href: '/#about-us', id: 'about-us' },
+    { name: 'Projects', href: '/#projects', id: 'projects' },
+    { name: 'Partners', href: '/#partners', id: 'partners' },
   ];
 
   return (
-    <>
-      <nav className="py-8 bg-white border-b border-gray-200">
-        <div className="container mx-auto px-4 flex items-center justify-between">
+    <nav className="bg-white border-b border-gray-200 py-8 sticky top-0 z-50">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between">
+          
           {/* Logo */}
           <Link href="/">
             <Image
@@ -31,17 +55,16 @@ const Navbar = () => {
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-x-10">
-            <nav className="flex gap-x-10">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="text-lg font-medium text-gray-700 hover:text-brand-primary transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </nav>
+            {navLinks.map((link) => (
+              <Link
+                key={link.id}
+                href={link.href}
+                onClick={(e) => link.id !== 'home' && handleScrollClick(e, link.id)}
+                className="text-lg font-medium text-gray-700 hover:text-brand-primary transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
             <Link
               href="/contact"
               className="text-lg font-medium bg-brand-primary text-white px-6 py-3 rounded-lg hover:bg-brand-secondary transition-colors"
@@ -52,78 +75,65 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
-            <button onClick={() => setIsOpen(true)} className="text-gray-700 focus:outline-none">
-              <svg
-                className="w-8 h-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                ></path>
+            <button onClick={() => setIsOpen(true)}>
+              {/* Simple Hamburger Icon */}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 12H21" stroke="#3467a5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M3 6H21" stroke="#3467a5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M3 18H21" stroke="#3467a5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
           </div>
+
         </div>
-      </nav>
+      </div>
 
       {/* Mobile Menu (Slide-in Drawer) */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40"
-          onClick={() => setIsOpen(false)}
-        ></div>
-      )}
+      
+      {/* Overlay */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-white z-50 shadow-xl transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={`md:hidden fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
+          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setIsOpen(false)}
+      />
+
+      {/* Drawer */}
+      <div
+        className={`md:hidden fixed top-0 right-0 h-full w-64 bg-white z-50 shadow-xl
+                   transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="flex justify-end p-4">
-          <button onClick={() => setIsOpen(false)} className="text-gray-700 focus:outline-none">
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
+        <div className="flex justify-end p-6">
+          <button onClick={() => setIsOpen(false)}>
+            {/* Simple Close Icon */}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6L6 18" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M6 6L18 18" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
         </div>
-        <nav className="flex flex-col gap-y-6 pt-20 px-8">
+        <nav className="flex flex-col px-8 space-y-6">
           {navLinks.map((link) => (
             <Link
-              key={link.name}
+              key={link.id}
               href={link.href}
+              onClick={(e) => link.id !== 'home' && handleScrollClick(e, link.id)}
               className="text-lg font-medium text-gray-700 hover:text-brand-primary"
-              onClick={() => setIsOpen(false)}
             >
               {link.name}
             </Link>
           ))}
           <Link
             href="/contact"
-            className="mt-4 text-lg font-medium bg-brand-primary text-white px-6 py-3 rounded-lg hover:bg-brand-secondary transition-colors text-center"
             onClick={() => setIsOpen(false)}
+            className="text-lg font-medium bg-brand-primary text-white px-6 py-3 rounded-lg hover:bg-brand-secondary transition-colors text-center"
           >
             Contact Us
           </Link>
         </nav>
       </div>
-    </>
+    </nav>
   );
-};
-
-export default Navbar;
+}
