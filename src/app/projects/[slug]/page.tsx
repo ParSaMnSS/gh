@@ -33,7 +33,7 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
+export default function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
 
   // THIS IS THE FIX: We use React.use() to unwrap the Promise
   const awaitedParams = React.use(params);
