@@ -10,19 +10,22 @@ export default function Footer() {
   const pathname = usePathname(); // Get the current page path
 
   const handleScrollClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    // 1. Check if we are on the homepage
     if (pathname === '/') {
-      // We are on the homepage, so scroll
-      e.preventDefault(); // Stop the link from navigating
+      e.preventDefault(); 
       const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        // Optional: Update URL hash
+        const navbar = document.getElementById('main-navbar');
+        const navbarHeight = navbar ? navbar.offsetHeight : 0;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - navbarHeight - 24; // 24px for a little extra padding
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
         window.history.pushState(null, '', `#${id}`);
       }
     }
-    // 2. If we are NOT on the homepage, the <Link href="/#id">
-    // will just work normally, and the ScrollHandler component will catch it.
   };
 
   return (

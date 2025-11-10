@@ -10,23 +10,24 @@ export default function Navbar() {
   const pathname = usePathname(); // Get the current page path
 
   const handleScrollClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    // Close the mobile menu if it's open
     setIsOpen(false);
 
-    // 1. Check if we are on the homepage
     if (pathname === '/') {
-      // We are on the homepage, so scroll
-      e.preventDefault(); // Stop the link from navigating
+      e.preventDefault();
       const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        // Optional: Update URL hash
+        const navbar = document.getElementById('main-navbar');
+        const navbarHeight = navbar ? navbar.offsetHeight : 0;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - navbarHeight - 24; // 24px for a little extra padding
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
         window.history.pushState(null, '', `#${id}`);
       }
     }
-    // 2. If we are NOT on the homepage, the <Link href="/#id">
-    // will just work normally, redirecting the user.
-    // The ScrollHandler component will then catch it.
   };
 
   // Define nav links for easy mapping
@@ -38,7 +39,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-white border-b border-gray-200 py-8 sticky top-0 z-50">
+    <nav id="main-navbar" className="bg-white border-b border-gray-200 py-8 sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           

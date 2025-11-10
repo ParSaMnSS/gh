@@ -15,10 +15,16 @@ export default function ScrollHandler() {
       const element = document.getElementById(id);
       
       if (element) {
-        // We use a small timeout to ensure the element is rendered
-        // before we try to scroll to it.
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
+          const navbar = document.getElementById('main-navbar');
+          const navbarHeight = navbar ? navbar.offsetHeight : 0;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - navbarHeight - 24; // 24px for a little extra padding
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
         }, 100);
       }
     }
