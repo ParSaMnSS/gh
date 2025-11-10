@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation'; // Import the hook
-import { ThemeToggle } from './ThemeToggle';
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +34,7 @@ export default function Navbar() {
   // Define nav links for easy mapping
   const navLinks = [
     { name: 'Home', href: '/', id: 'home' },
-    { name: 'About Us', href: '/about-us', id: 'about-us-page' },
+    { name: 'About Us', href: '/#about-us', id: 'about-us' },
     { name: 'Projects', href: '/#projects', id: 'projects' },
     { name: 'Partners', href: '/#partners', id: 'partners' },
   ];
@@ -73,7 +73,6 @@ export default function Navbar() {
             >
               Contact Us
             </Link>
-            <ThemeToggle />
           </div>
 
           {/* Mobile Menu Button */}
@@ -118,9 +117,7 @@ export default function Navbar() {
           </button>
         </div>
         <nav className="flex flex-col px-8 space-y-6">
-          <div className="text-center">
-            <ThemeToggle />
-          </div>
+
           {navLinks.map((link) => (
             <Link
               key={link.id}
