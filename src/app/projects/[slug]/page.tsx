@@ -1,42 +1,44 @@
-import React from 'react';
+import React from 'react'; // <-- IMPORT REACT
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-// 1. DATA IS NOW OUTSIDE THE COMPONENT
+// DATA IS OUTSIDE THE COMPONENT
 const projectData = {
-  'feed-factory': { 
-    title: 'Ghadir Babil Feed Factory', 
-    description: 'This is our first project, where we produce high quality chicken feed for all stages.', 
-    features: ['Broiler poultry feed production', 'Layer poultry feed production'] 
+  'feed-factory': {
+    title: 'Ghadir Babil Feed Factory',
+    description: 'This is our first project, where we produce high quality chicken feed for all stages.',
+    features: ['Broiler poultry feed production', 'Layer poultry feed production']
   },
-  'poultry-farms': { 
-    title: 'Ghadir Babil Poultry Farms', 
-    description: 'We grow poultry without the use of drugs and antibiotics in our poultry farms, prioritizing consumer health and a safe production chain.', 
-    features: ['Drug and antibiotic-free', 'Focus on consumer health', 'Adherence to European Union standards'] 
+  'poultry-farms': {
+    title: 'Ghadir Babil Poultry Farms',
+    description: 'We grow poultry without the use of drugs and antibiotics in our poultry farms, prioritizing consumer health and a safe production chain.',
+    features: ['Drug and antibiotic-free', 'Focus on consumer health', 'Adherence to European Union standards']
   },
-  'research': { 
-    title: 'Research Centre', 
-    description: 'We have laboratories where we conduct experiments to make our products as healthy and high quality as possible.', 
-    features: ['Max quality pre-starter development', 'Max quality starter development', 'Ongoing feed optimization'] 
+  'research': {
+    title: 'Research Centre',
+    description: 'We have laboratories where we conduct experiments to make our products as healthy and high quality as possible.',
+    features: ['Max quality pre-starter development', 'Max quality starter development', 'Ongoing feed optimization']
   },
-  'trade': { 
-    title: 'General Trade Centre', 
-    description: 'We offer import-export services in our general trade centre.', 
-    features: ['Importing hatching eggs', 'Importing feed industrial machines & equipment', 'Importing feed additives', 'Importing raw materials'] 
+  'trade': {
+    title: 'General Trade Centre',
+    description: 'We offer import-export services in our general trade centre.',
+    features: ['Importing hatching eggs', 'Importing feed industrial machines & equipment', 'Importing feed additives', 'Importing raw materials']
   }
 };
 
-// 2. THIS FUNCTION TELLS NEXT.JS WHICH SLUGS TO BUILD
+// THIS FUNCTION TELLS NEXT.JS WHICH SLUGS TO BUILD
 export function generateStaticParams() {
   return Object.keys(projectData).map((slug) => ({
     slug: slug,
   }));
 }
 
-// 3. THE COMPONENT IS NO LONGER ASYNC!
 export default function ProjectPage({ params }: { params: { slug: string } }) {
 
-  const slug = params.slug ? params.slug.trim().toLowerCase() : '';
+  // THIS IS THE FIX: We use React.use() to unwrap the Promise
+  const awaitedParams = React.use(params);
+
+  const slug = awaitedParams.slug.trim().toLowerCase();
   const project = projectData[slug as keyof typeof projectData];
 
   // Use the real notFound() function
@@ -53,7 +55,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
       <main className="bg-white py-32">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-            
+
             {/* Left Column (Placeholders) */}
             <div className="flex flex-col gap-4">
               <div className="bg-slate-200 rounded-lg h-96 flex items-center justify-center text-slate-500 text-lg">
@@ -74,7 +76,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               <p className="text-lg text-gray-600 mb-8">
                 {project.description}
               </p>
-              
+
               <h2 className="text-3xl font-semibold text-gray-900 mb-6">
                 Key Features
               </h2>
