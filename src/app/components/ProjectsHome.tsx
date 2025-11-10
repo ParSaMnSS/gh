@@ -39,9 +39,9 @@ const ProjectsHome = () => {
   ];
 
   return (
-    <section className="bg-slate-50 py-32">
+    <section className="bg-brand-primary py-32">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-brand-primary mb-16">
+        <h2 className="text-4xl font-bold text-center text-white mb-16">
           Our Projects
         </h2>
 
