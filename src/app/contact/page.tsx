@@ -1,9 +1,25 @@
-'use client';
+'use client'; // This must be a client component
 
-import React from 'react';
-import { submitContactForm } from '../actions';
+import React, { useState } from 'react';
+import { submitContactForm } from './actions'; // <-- Import the new action
 
 export default function ContactPage() {
+  const [status, setStatus] = useState<{ success: boolean; message: string | null }>({
+    success: false,
+    message: null,
+  });
+
+  const handleFormSubmit = async (formData: FormData) => {
+    const result = await submitContactForm(formData);
+    
+    if (result.success) {
+      setStatus({ success: true, message: 'Message sent successfully! We will get back to you soon.' });
+      // We can reset the form here if we give the form an id
+    } else {
+      setStatus({ success: false, message: result.error });
+    }
+  };
+
   return (
     <main>
       {/* Page Header (Redesigned) */}
@@ -25,8 +41,7 @@ export default function ContactPage() {
             <h2 className="mb-8 text-3xl font-semibold text-gray-900">
               Send Us a Message
             </h2>
-            {/* We will add the 'action' to this form later */}
-            <form className="space-y-6" action={submitContactForm}>
+            <form className="space-y-6" action={handleFormSubmit}>
               <div>
                 <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-700">
                   Your Name
@@ -87,6 +102,13 @@ export default function ContactPage() {
                   Submit Message
                 </button>
               </div>
+              
+              {/* Status Message */}
+              {status.message && (
+                <div className={`mt-4 text-lg ${status.success ? 'text-green-600' : 'text-red-600'}`}>
+                  {status.message}
+                </div>
+              )}
             </form>
           </div>
 
@@ -124,7 +146,6 @@ export default function ContactPage() {
               ></iframe>
             </div>
           </div>
-
         </div>
       </section>
     </main>
