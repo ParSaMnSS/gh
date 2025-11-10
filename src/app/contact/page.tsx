@@ -1,3 +1,8 @@
+'use client';
+
+import React from 'react';
+import { submitContactForm } from '../actions';
+
 export default function ContactPage() {
   return (
     <main>
@@ -21,7 +26,7 @@ export default function ContactPage() {
               Send Us a Message
             </h2>
             {/* We will add the 'action' to this form later */}
-            <form className="space-y-6">
+            <form className="space-y-6" action={submitContactForm}>
               <div>
                 <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-700">
                   Your Name

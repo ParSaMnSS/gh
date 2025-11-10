@@ -2,6 +2,7 @@ import Hero from "./components/Hero";
 import AboutUsHome from "./components/AboutUsHome";
 import ProjectsHome from "./components/ProjectsHome";
 import PartnersMarquee from "./components/PartnersMarquee";
+import CTA from "./components/CTA";
 
 export default function Home() {
   return (
@@ -20,6 +21,8 @@ export default function Home() {
       <section id="partners">
         <PartnersMarquee />
       </section>
+
+      <CTA />
     </main>
   );
 }
