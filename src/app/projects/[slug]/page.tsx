@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
-// Define the data structure
+// 1. DATA IS NOW OUTSIDE THE COMPONENT
 const projectData = {
   'feed-factory': { 
     title: 'Ghadir Babil Feed Factory', 
@@ -25,20 +26,22 @@ const projectData = {
   }
 };
 
-// THIS 'async' KEYWORD IS THE FIX
-export default async function ProjectPage({ params }: { params: { slug: string } }) {
+// 2. THIS FUNCTION TELLS NEXT.JS WHICH SLUGS TO BUILD
+export function generateStaticParams() {
+  return Object.keys(projectData).map((slug) => ({
+    slug: slug,
+  }));
+}
 
-  const slug = params.slug;
+// 3. THE COMPONENT IS NO LONGER ASYNC!
+export default function ProjectPage({ params }: { params: { slug: string } }) {
+
+  const slug = params.slug ? params.slug.trim().toLowerCase() : '';
   const project = projectData[slug as keyof typeof projectData];
 
+  // Use the real notFound() function
   if (!project) {
-    return (
-      <main className="bg-black text-white py-40">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-2xl">Project Not Found</h1>
-        </div>
-      </main>
-    );
+    return notFound();
   }
 
   return (
