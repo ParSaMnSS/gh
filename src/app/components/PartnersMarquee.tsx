@@ -18,7 +18,7 @@ const duplicatedPartners = [...partnersData, ...partnersData];
 
 export default function PartnersMarquee() {
   return (
-    <section className="bg-white py-32">
+    <section className="bg-white py-32 overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Titles */}
         <h2 className="text-4xl font-bold text-center text-brand-primary mb-6">

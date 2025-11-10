@@ -7,12 +7,12 @@ const AboutUsHome = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           {/* Image Placeholder Column */}
-          <div className="rounded-lg h-96 bg-slate-200 flex items-center justify-center">
+          <div className="rounded-lg h-96 bg-slate-200 flex items-center justify-center mx-auto">
             <p className="text-slate-500">Image Placeholder</p>
           </div>
 
           {/* Text Content Column */}
-          <div>
+          <div className="text-center md:text-left">
             <p className="text-brand-primary font-semibold mb-3">About Us</p>
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
               Welcome to Ghadir Babil
@@ -25,7 +25,7 @@ const AboutUsHome = () => {
             </p>
             <Link
               href="/about-us"
-              className="text-lg font-medium text-brand-primary border-2 border-brand-primary px-6 py-3 rounded-lg hover:bg-brand-primary hover:text-white transition-colors"
+              className="text-lg font-medium text-brand-primary border-2 border-brand-primary px-6 py-3 rounded-lg hover:bg-brand-primary hover:text-white transition-colors mx-auto md:mx-0"
             >
               Learn More
             </Link>

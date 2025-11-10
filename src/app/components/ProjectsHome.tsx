@@ -49,14 +49,14 @@ const ProjectsHome = () => {
           {projects.map((project) => (
             <div
               key={project.title}
-              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow flex flex-col"
+              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow flex flex-col text-center md:text-left"
             >
               <Image
                 src={project.iconSrc}
                 alt={project.iconAlt}
                 width={48}
                 height={48}
-                className="text-brand-primary mb-4"
+                className="text-brand-primary mb-4 mx-auto md:mx-0"
               />
               <h3 className="text-2xl font-semibold text-gray-900 mb-3">
                 {project.title}
