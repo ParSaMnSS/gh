@@ -1,17 +1,20 @@
+import React from 'react';
 import Image from 'next/image';
 
-const logoFilenames = [
-  'agravis.png',
-  'betsan.png',
-  'dutchman.webp',
-  'jps.jpg',
-  'primavet.webp',
-  'rotem.png',
-  'tekno.png',
-  'yemtar.jpg',
+// We now use an array of objects with the correct, user-provided links
+const partnersData = [
+  { src: 'agravis.png', alt: 'Agravis', href: 'https://www.agravis.de/de/unsere-leistungen' },
+  { src: 'betsan.png', alt: 'Betsan', href: 'https://www.betsanltd.com/' },
+  { src: 'dutchman.webp', alt: 'Dutchman', href: 'https://www.bigdutchman.com/en/homepage/' },
+  { src: 'jps.jpg', alt: 'JPS', href: 'http://jordanpapersacks.com/' },
+  { src: 'primavet.webp', alt: 'Primavet', href: 'https://prima-vet.de/' },
+  { src: 'rotem.png', alt: 'Rotem', href: 'https://rotem.com.tr/' },
+  { src: 'tekno.png', alt: 'Tekno', href: 'https://www.teknopanel.com.tr/tr-tr' },
+  { src: 'yemtar.jpg', alt: 'Yemtar', href: 'https://www.yemtar.com/en' },
 ];
 
-const logos = [...logoFilenames, ...logoFilenames];
+// We still duplicate the list for the seamless loop
+const duplicatedPartners = [...partnersData, ...partnersData];
 
 export default function PartnersMarquee() {
   return (
@@ -26,11 +29,7 @@ export default function PartnersMarquee() {
           the best products.
         </p>
 
-        {/* This is the marquee structure.
-          - 'overflow-hidden' creates the window.
-          - 'marquee-container' is the wrapper that detects hover (defined in globals.css).
-          - 'animate-scroll' is the track that moves (defined in globals.css).
-        */}
+        {/* Marquee Container */}
         <div
           className="marquee-container w-full overflow-hidden"
           style={{
@@ -38,20 +37,35 @@ export default function PartnersMarquee() {
               'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
           }}
         >
-          <div className="animate-scroll shrink-0">
-            {logos.map((filename, index) => (
-              <div
+          <div className="animate-scroll flex-shrink-0">
+            {duplicatedPartners.map((partner, index) => (
+              // This is now a clickable link
+              <a
                 key={index}
-                className="mx-8 flex h-32 w-48 shrink-0 items-center justify-center transition-transform duration-300 hover:scale-110"
+                href={partner.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mx-8 flex-shrink-0"
               >
-                <Image
-                  src={`/partners/${filename}`}
-                  alt={`Partner logo ${index + 1}`}
-                  width={150} // Set a consistent base width
-                  height={80} // Set a consistent base height
-                  className="object-contain" // Ensures logos fit nicely
-                />
-              </div>
+                {/* THIS IS THE FIX:
+                  - Removed h-32 (which caused clipping)
+                  - Added py-4 (for vertical space)
+                  - Added relative and z-10 on hover to make it scale *above* other logos
+                */}
+                <div
+                  className="flex w-48 items-center justify-center rounded-lg py-4 
+                             transition-transform duration-300 
+                             hover:scale-110 hover:relative hover:z-10"
+                >
+                  <Image
+                    src={`/partners/${partner.src}`}
+                    alt={partner.alt}
+                    width={150}
+                    height={80}
+                    className="object-contain"
+                  />
+                </div>
+              </a>
             ))}
           </div>
         </div>
