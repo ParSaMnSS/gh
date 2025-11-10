@@ -19,7 +19,7 @@ export default function Navbar() {
         const navbar = document.getElementById('main-navbar');
         const navbarHeight = navbar ? navbar.offsetHeight : 0;
         const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = elementPosition - navbarHeight - 24; // 24px for a little extra padding
+        const offsetPosition = elementPosition - (navbarHeight / 2);
 
         window.scrollTo({
           top: offsetPosition,
