@@ -1,7 +1,7 @@
 import Hero from "./components/Hero";
 import AboutUsHome from "./components/AboutUsHome";
 import ProjectsHome from "./components/ProjectsHome";
-import PartnersHome from "./components/PartnersHome";
+import PartnersHome from "./components/PartnersMarquee";
 
 export default function Home() {
   return (
