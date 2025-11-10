@@ -7,7 +7,7 @@ const AboutUsHome = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           {/* Image Placeholder Column */}
-          <div className="rounded-lg h-96 bg-slate-200 flex items-center justify-center mx-auto">
+          <div className="rounded-lg h-96 bg-slate-200 flex items-center justify-center w-full">
             <p className="text-slate-500">Image Placeholder</p>
           </div>
 

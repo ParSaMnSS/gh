@@ -18,7 +18,7 @@ const duplicatedPartners = [...partnersData, ...partnersData];
 
 export default function PartnersMarquee() {
   return (
-    <section className="bg-white py-32 overflow-hidden">
+    <section className="bg-white py-32 overflow-hidden"> {/* overflow-hidden is still needed */}
       <div className="container mx-auto px-4">
         {/* Titles */}
         <h2 className="text-4xl font-bold text-center text-brand-primary mb-6">
@@ -29,9 +29,10 @@ export default function PartnersMarquee() {
           the best products.
         </p>
 
-        {/* Marquee Container */}
+        {/* --- Marquee (Desktop Only) --- */}
+        {/* We hide this on mobile, and show it on medium screens and up */}
         <div
-          className="marquee-container w-full overflow-hidden"
+          className="marquee-container w-full overflow-hidden hidden md:block"
           style={{
             maskImage:
               'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
@@ -39,7 +40,6 @@ export default function PartnersMarquee() {
         >
           <div className="animate-scroll flex-shrink-0">
             {duplicatedPartners.map((partner, index) => (
-              // This is now a clickable link
               <a
                 key={index}
                 href={partner.href}
@@ -47,11 +47,6 @@ export default function PartnersMarquee() {
                 rel="noopener noreferrer"
                 className="mx-8 flex-shrink-0"
               >
-                {/* THIS IS THE FIX:
-                  - Removed h-32 (which caused clipping)
-                  - Added py-4 (for vertical space)
-                  - Added relative and z-10 on hover to make it scale *above* other logos
-                */}
                 <div
                   className="flex w-48 items-center justify-center rounded-lg py-4 
                              transition-transform duration-300 
@@ -69,6 +64,29 @@ export default function PartnersMarquee() {
             ))}
           </div>
         </div>
+
+        {/* --- Mobile Grid (Mobile Only) --- */}
+        {/* We show this on mobile, and hide it on medium screens and up */}
+        <div className="grid grid-cols-2 gap-8 md:hidden">
+          {partnersData.map((partner, index) => (
+            <a
+              key={index}
+              href={partner.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-32 w-full items-center justify-center rounded-lg bg-slate-50 p-4"
+            >
+              <Image
+                src={`/partners/${partner.src}`}
+                alt={partner.alt}
+                width={150}
+                height={80}
+                className="object-contain"
+              />
+            </a>
+          ))}
+        </div>
+
       </div>
     </section>
   );
