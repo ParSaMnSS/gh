@@ -1,21 +1,22 @@
 import React from "react";
 import Link from "next/link";
+import { Dictionary } from '@/lib/i18n';
 
-const Hero = () => {
+const Hero = ({ dict, locale }: { dict: Dictionary, locale: 'en' | 'ar' }) => {
   return (
     <section className="bg-slate-50 text-center py-40">
       <div className="container mx-auto">
         <h1 className="text-4xl font-bold text-brand-primary mb-6 md:text-6xl">
-          Health & Quality Guaranteed
+          {dict.Hero.Title}
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-10">
-          General Trade, Agricultural & Animal Feed Production Company
+          {dict.Hero.Subtitle}
         </p>
         <Link
-          href="/about-us"
+          href={`/${locale}/#about-us`}
           className="bg-brand-primary text-white px-8 py-4 rounded-lg font-medium text-lg hover:bg-brand-secondary transition-colors"
         >
-          Learn More
+          {dict.Hero.LearnMore}
         </Link>
       </div>
     </section>

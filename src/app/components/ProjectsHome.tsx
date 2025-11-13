@@ -1,40 +1,37 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Dictionary } from '@/lib/i18n';
 
-const ProjectsHome = () => {
+const ProjectsHome = ({ dict, locale }: { dict: Dictionary, locale: 'en' | 'ar' }) => {
   const projects = [
     {
       iconSrc: "/svgs/icon-factory.svg",
       iconAlt: "Feed Factory",
-      title: "Ghadir Babil Feed Factory",
-      description:
-        "We produce high-quality broiler and layer poultry feed for all stages.",
-      link: "/projects/feed-factory",
+      title: dict.ProjectsHome.FeedFactoryTitle,
+      description: dict.ProjectsHome.FeedFactoryDescription,
+      link: `/${locale}/projects/feed-factory`,
     },
     {
       iconSrc: "/svgs/icon-poultry.svg",
       iconAlt: "Poultry Farms",
-      title: "Ghadir Babil Poultry Farms",
-      description:
-        "We grow poultry without the use of drugs and antibiotics in our specialized farms.",
-      link: "/projects/poultry-farms",
+      title: dict.ProjectsHome.PoultryFarmsTitle,
+      description: dict.ProjectsHome.PoultryFarmsDescription,
+      link: `/${locale}/projects/poultry-farms`,
     },
     {
       iconSrc: "/svgs/icon-research.svg",
       iconAlt: "Research Centre",
-      title: "Research Centre",
-      description:
-        "Our laboratories conduct experiments to make our products as healthy as possible.",
-      link: "/projects/research",
+      title: dict.ProjectsHome.ResearchCentreTitle,
+      description: dict.ProjectsHome.ResearchCentreDescription,
+      link: `/${locale}/projects/research`,
     },
     {
       iconSrc: "/svgs/icon-trade.svg",
       iconAlt: "General Trade",
-      title: "General Trade Centre",
-      description:
-        "We offer import-export services, including hatching eggs, feed additives, and raw materials.",
-      link: "/projects/trade",
+      title: dict.ProjectsHome.GeneralTradeTitle,
+      description: dict.ProjectsHome.GeneralTradeDescription,
+      link: `/${locale}/projects/trade`,
     },
   ];
 
@@ -42,7 +39,7 @@ const ProjectsHome = () => {
     <section className="bg-brand-primary py-32">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-white mb-16">
-          Our Projects
+          {dict.ProjectsHome.Title}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -66,9 +63,9 @@ const ProjectsHome = () => {
               </p>
               <Link
                 href={project.link}
-                className="font-medium text-brand-primary hover:text-brand-secondary"
+                className="inline-block text-center bg-white text-brand-primary px-6 py-3 rounded-lg border-2 border-brand-primary hover:bg-brand-primary hover:text-white transition-colors"
               >
-                Read More &rarr;
+                {dict.ProjectsHome.ReadMore}
               </Link>
             </div>
           ))}

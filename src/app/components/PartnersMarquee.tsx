@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
+import { Dictionary } from '@/lib/i18n';
 
-// We now use an array of objects with the correct, user-provided links
 const partnersData = [
   { src: 'agravis.png', alt: 'Agravis', href: 'https://www.agravis.de/de/unsere-leistungen' },
   { src: 'betsan.png', alt: 'Betsan', href: 'https://www.betsanltd.com/' },
@@ -13,24 +13,19 @@ const partnersData = [
   { src: 'yemtar.jpg', alt: 'Yemtar', href: 'https://www.yemtar.com/en' },
 ];
 
-// We still duplicate the list for the seamless loop
 const duplicatedPartners = [...partnersData, ...partnersData];
 
-export default function PartnersMarquee() {
+export default function PartnersMarquee({ dict }: { dict: Dictionary }) {
   return (
-    <section className="bg-white py-32 overflow-hidden"> {/* overflow-hidden is still needed */}
+    <section className="bg-white py-32 overflow-hidden">
       <div className="container mx-auto px-4">
-        {/* Titles */}
         <h2 className="text-4xl font-bold text-center text-brand-primary mb-6">
-          Our Valued Partners
+          {dict.PartnersMarquee.Title}
         </h2>
         <p className="text-lg text-gray-600 text-center max-w-2xl mx-auto mb-16">
-          We are proud to collaborate with industry-leading companies to deliver
-          the best products.
+          {dict.PartnersMarquee.Description}
         </p>
 
-        {/* --- Marquee (Desktop Only) --- */}
-        {/* We hide this on mobile, and show it on medium screens and up */}
         <div
           className="marquee-container w-full overflow-hidden hidden md:block"
           style={{
@@ -65,8 +60,6 @@ export default function PartnersMarquee() {
           </div>
         </div>
 
-        {/* --- Mobile Grid (Mobile Only) --- */}
-        {/* We show this on mobile, and hide it on medium screens and up */}
         <div className="grid grid-cols-2 gap-8 md:hidden">
           {partnersData.map((partner, index) => (
             <a

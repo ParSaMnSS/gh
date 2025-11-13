@@ -1,25 +1,26 @@
-import React from 'react';
-import Link from 'next/link';
+import Link from "next/link";
+import React from "react";
+import { Dictionary } from '@/lib/i18n';
 
-export default function CTA() {
+const CTA = ({ dict, locale }: { dict: Dictionary, locale: 'en' | 'ar' }) => {
   return (
-    <section className="bg-brand-primary">
-      <div className="container mx-auto px-4 py-32 text-center">
-        <h2 className="text-4xl font-bold text-white mb-6">
-          Ready to Start Your Next Project?
+    <section className="bg-brand-primary py-20 text-white">
+      <div className="container mx-auto text-center">
+        <h2 className="text-4xl font-bold mb-4">
+          {dict.CTA.Title}
         </h2>
-        <p className="text-lg text-slate-200 max-w-2xl mx-auto mb-10">
-          Let us provide you with the high-quality feed and agricultural services
-          you need. Get in touch with our team today.
+        <p className="text-lg max-w-2xl mx-auto mb-8">
+          {dict.CTA.Subtitle}
         </p>
         <Link
-          href="/contact"
-          className="text-lg font-medium bg-white text-brand-primary px-8 py-4 rounded-lg 
-                     hover:bg-slate-200 transition-colors"
+          href={`/${locale}/contact`}
+          className="bg-white text-brand-primary px-8 py-4 rounded-lg font-medium text-lg hover:bg-gray-200 transition-colors"
         >
-          Get in Touch
+          {dict.CTA.GetInTouch}
         </Link>
       </div>
     </section>
   );
-}
+};
+
+export default CTA;

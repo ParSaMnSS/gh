@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+import { Dictionary } from '@/lib/i18n';
 
-export default function AboutUsHome() {
+export default function AboutUsHome({ dict, locale }: { dict: Dictionary, locale: 'en' | 'ar' }) {
   return (
     <section className="bg-white py-32">
       <div className="container mx-auto px-4">
@@ -16,16 +17,16 @@ export default function AboutUsHome() {
 
           {/* Text Content Column */}
           <div className="text-center md:text-left">
-            <p className="text-brand-primary font-semibold mb-3">About Us</p>
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Welcome to Ghadir Babil</h2>
+            <p className="text-brand-primary font-semibold mb-3">{dict.AboutUsHome.Subtitle}</p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">{dict.AboutUsHome.Title}</h2>
             <p className="text-lg text-gray-600 mb-8">
-              Ghadir Babil began in 2004 by establishing an animal feed factory, and now it is one of the competing companies in Iraq. We are an Iraqi company specialized in general trade, agricultural, and animal feed production.
+              {dict.AboutUsHome.Description}
             </p>
             <Link 
-              href="/about-us"
+              href={`/${locale}/about-us`}
               className="text-lg font-medium text-brand-primary border-2 border-brand-primary px-6 py-3 rounded-lg hover:bg-brand-primary hover:text-white transition-colors mx-auto md:mx-0"
             >
-              Learn More
+              {dict.AboutUsHome.LearnMore}
             </Link>
           </div>
 

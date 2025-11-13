@@ -1,0 +1,73 @@
+{
+  "Navigation": {
+    "Home": "Home",
+    "AboutUs": "About Us",
+    "Projects": "Projects",
+    "Partners": "Partners",
+    "ContactUs": "Contact Us"
+  },
+  "Hero": {
+    "Title": "Health & Quality Guaranteed",
+    "Subtitle": "General Trade, Agricultural & Animal Feed Production Company",
+    "LearnMore": "Learn More"
+  },
+  "CTA": {
+    "Title": "Ready to Start Your Next Project?",
+    "Subtitle": "Let us provide you with the high-quality feed and agricultural services you need. Get in touch with our team today.",
+    "GetInTouch": "Get in Touch"
+  },
+  "Footer": {
+    "QuickLinks": "Quick Links",
+    "OurProjects": "Our Projects",
+    "ContactUs": "Contact Us",
+    "Address": "Baghdad, Iraq",
+    "Copyright": "Ghadir Babil. All rights reserved."
+  },
+  "AboutUsHome": {
+    "Subtitle": "About Us",
+    "Title": "Welcome to Ghadir Babil",
+    "Description": "Ghadir Babil began in 2004 by establishing an animal feed factory, and now it is one of the competing companies in Iraq. We are an Iraqi company specialized in general trade, agricultural, and animal feed production.",
+    "LearnMore": "Learn More"
+  },
+  "ProjectsHome": {
+    "Title": "Our Projects",
+    "FeedFactoryTitle": "Ghadir Babil Feed Factory",
+    "FeedFactoryDescription": "We produce high-quality broiler and layer poultry feed for all stages.",
+    "PoultryFarmsTitle": "Ghadir Babil Poultry Farms",
+    "PoultryFarmsDescription": "We grow poultry without the use of drugs and antibiotics in our specialized farms.",
+    "ResearchCentreTitle": "Research Centre",
+    "ResearchCentreDescription": "Our laboratories conduct experiments to make our products as healthy as possible.",
+    "GeneralTradeTitle": "General Trade Centre",
+    "GeneralTradeDescription": "We offer import-export services, including hatching eggs, feed additives, and raw materials.",
+    "ReadMore": "Read More"
+  },
+  "PartnersMarquee": {
+    "Title": "Our Valued Partners",
+    "Description": "We are proud to collaborate with industry-leading companies to deliver the best products."
+  },
+  "ProjectsPage": {
+    "feed-factory": {
+      "title": "Ghadir Babil Feed Factory",
+      "description": "This is our first project, where we produce high quality chicken feed for all stages.",
+      "features": ["Broiler poultry feed production", "Layer poultry feed production"]
+    },
+    "poultry-farms": {
+      "title": "Ghadir Babil Poultry Farms",
+      "description": "We grow poultry without the use of drugs and antibiotics in our poultry farms, prioritizing consumer health and a safe production chain.",
+      "features": ["Drug and antibiotic-free", "Focus on consumer health", "Adherence to European Union standards"]
+    },
+    "research": {
+      "title": "Research Centre",
+      "description": "We have laboratories where we conduct experiments to make our products as healthy and high quality as possible.",
+      "features": ["Max quality pre-starter development", "Max quality starter development", "Ongoing feed optimization"]
+    },
+    "trade": {
+      "title": "General Trade Centre",
+      "description": "We offer import-export services in our general trade centre.",
+      "features": ["Importing hatching eggs", "Importing feed industrial machines & equipment", "Importing feed additives", "Importing raw materials"]
+    },
+    "ProjectDescription": "Project Description",
+    "KeyFeatures": "Key Features",
+    "BackToHome": "← Back to Home"
+  }
+}

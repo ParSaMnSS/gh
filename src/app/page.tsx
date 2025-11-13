@@ -1,28 +1,5 @@
-import Hero from "./components/Hero";
-import AboutUsHome from "./components/AboutUsHome";
-import ProjectsHome from "./components/ProjectsHome";
-import PartnersMarquee from "./components/PartnersMarquee";
-import CTA from "./components/CTA";
+import { redirect } from 'next/navigation';
 
-export default function Home() {
-  return (
-    <main>
-      <Hero />
-      
-      {/* These section wrappers with IDs are new */}
-      <section id="about-us">
-        <AboutUsHome />
-      </section>
-      
-      <section id="projects">
-        <ProjectsHome />
-      </section>
-      
-      <section id="partners">
-        <PartnersMarquee />
-      </section>
-
-      <CTA />
-    </main>
-  );
+export default function RootRedirectPage() {
+  redirect('/en');
 }
