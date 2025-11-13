@@ -170,65 +170,67 @@ export default function Navbar({ dict, locale }: { dict: Dictionary, locale: 'en
           />
 
           <div
-            className={`md:hidden fixed top-0 right-0 h-full w-3/4 bg-white/80 backdrop-blur-md z-50 shadow-xl
+            className={`md:hidden fixed top-0 right-0 h-screen w-3/4 backdrop-blur-md z-50 shadow-xl
                        transition-transform duration-300 ease-in-out ${
               isOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
-            <div className="flex justify-end p-6">
-              <button onClick={closeAllMenus}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18 6L6 18" stroke="#3467a5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M6 6L18 18" stroke="#3467a5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
-            </div>
-            <nav className={`flex flex-col px-8 space-y-6 ${locale === 'ar' ? 'text-right' : 'text-left'}`}>
-              <div className="relative" ref={mobileLangDropdownRef}>
-                <button
-                  onClick={() => setIsMobileLangOpen(!isMobileLangOpen)}
-                  className="flex items-center justify-between w-full text-lg font-medium text-gray-700 hover:text-brand-primary transition-colors"
-                >
-                  <span>{locale === 'en' ? 'English' : 'العربية'}</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 transition-transform ${isMobileLangOpen ? 'transform rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            <div className="bg-white h-screen overflow-y-auto">
+              <div className="flex justify-end p-6">
+                <button onClick={closeAllMenus}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18" stroke="#3467a5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M6 6L18 18" stroke="#3467a5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </button>
-                {isMobileLangOpen && (
-                  <div className="mt-2 w-full bg-white rounded-lg shadow-xl z-10">
-                    <button
-                      onClick={() => switchLocale('en')}
-                      className="block w-full text-left px-4 py-2 text-lg text-gray-700 hover:bg-gray-100"
-                    >
-                      English
-                    </button>
-                    <button
-                      onClick={() => switchLocale('ar')}
-                      className="block w-full text-left px-4 py-2 text-lg text-gray-700 hover:bg-gray-100"
-                    >
-                      العربية
-                    </button>
-                  </div>
-                )}
               </div>
-              {navLinks.map((link) => (
+              <nav className={`flex flex-col px-8 space-y-6 ${locale === 'ar' ? 'text-right' : 'text-left'}`}>
+                <div className="relative" ref={mobileLangDropdownRef}>
+                  <button
+                    onClick={() => setIsMobileLangOpen(!isMobileLangOpen)}
+                    className="flex items-center justify-between w-full text-lg font-medium text-gray-700 hover:text-brand-primary transition-colors"
+                  >
+                    <span>{locale === 'en' ? 'English' : 'العربية'}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 transition-transform ${isMobileLangOpen ? 'transform rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {isMobileLangOpen && (
+                    <div className="mt-2 w-full bg-white rounded-lg shadow-xl z-10">
+                      <button
+                        onClick={() => switchLocale('en')}
+                        className="block w-full text-left px-4 py-2 text-lg text-gray-700 hover:bg-gray-100"
+                      >
+                        English
+                      </button>
+                      <button
+                        onClick={() => switchLocale('ar')}
+                        className="block w-full text-left px-4 py-2 text-lg text-gray-700 hover:bg-gray-100"
+                      >
+                        العربية
+                      </button>
+                    </div>
+                  )}
+                </div>
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.id}
+                    href={link.href}
+                    onClick={(e) => handleScrollClick(e, link.id)}
+                    className="text-lg font-medium text-gray-700 hover:text-brand-primary"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
                 <Link
-                  key={link.id}
-                  href={link.href}
-                  onClick={(e) => handleScrollClick(e, link.id)}
-                  className="text-lg font-medium text-gray-700 hover:text-brand-primary"
+                  href={`/${locale}/contact`}
+                  onClick={closeAllMenus}
+                  className="text-lg font-medium bg-brand-primary text-white px-6 py-3 rounded-lg hover:bg-brand-secondary transition-colors text-center"
                 >
-                  {link.name}
+                  {dict.Navigation.ContactUs}
                 </Link>
-              ))}
-              <Link
-                href={`/${locale}/contact`}
-                onClick={closeAllMenus}
-                className="text-lg font-medium bg-brand-primary text-white px-6 py-3 rounded-lg hover:bg-brand-secondary transition-colors text-center"
-              >
-                {dict.Navigation.ContactUs}
-              </Link>
-            </nav>
+              </nav>
+            </div>
           </div>
         </div>
       </div>
